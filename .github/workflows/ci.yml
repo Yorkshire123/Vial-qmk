@@ -16,7 +16,7 @@ jobs:
 
       - name: Add safe directory for Git
         run: |
-          git config --global --add safe.directory  $ __w/Vial-qmk/Vial-qmk
+          git config --global --add safe.directory " $ __w/Vial-qmk/Vial-qmk"
 
       - name: Initialize Git Submodules
         run: git submodule update --init --recursive
