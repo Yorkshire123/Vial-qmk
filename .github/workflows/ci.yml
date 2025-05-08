@@ -7,18 +7,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/base_container  # 容器配置与 steps 同级
+    container: qmkfm/base_container
 
-    steps:  # 步骤需与 container 同级
+    steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 修复 actions/checkout@v2 为 v3（最新版）
+          fetch-depth: 0
+
+      - name: Add safe directory for Git
+        run: |
+          git config --global --add safe.directory  $ __w/Vial-qmk/Vial-qmk
+
+      - name: Initialize Git Submodules
+        run: git submodule update --init --recursive
 
       - name: Verify Vial UID is unique
         run: python3 util/ci_vial_verify_uid.py
-
-      - name: Initialize Git Submodules
-        run: git submodule update --init --recursive  # 添加子模块初始化
 
       - name: Compile Vial keyboards
         run: |
@@ -26,4 +30,4 @@ jobs:
           python3 util/ci_compile_vial_keyboards.py
 
       - name: Final Build
-        run: make gh71:vial  # 将此步骤缩进到 steps 内部
+        run: make gh71:vial
