@@ -25,4 +25,4 @@ jobs:
     #     python3 util/ci_compile_vial_keyboards.py
     steps:
       - uses: actions/checkout@v3
-      - run: make gh71/default
+      - run: make gh71/vial
